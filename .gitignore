@@ -2,3 +2,5 @@
 .env
 .venv/
 env/
+
+ilm_removal_plan.txt

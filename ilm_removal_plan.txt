@@ -1,4 +1,4 @@
-# Dry run plan generated on: 2025-06-09T13:20:25.334002
+# Dry run plan generated on: 2025-06-09T14:48:18.510848
 # Elasticsearch: http://localhost:9200
 # Found 609 indices matching old format
 # Commands to remove ILM policy:
@@ -70,7 +70,7 @@ curl -X POST http://localhost:9200/.ds-search_emptyevent_c002_730d_v1-2025.05.07
 curl -X POST http://localhost:9200/.ds-search_emptyevent_c002_730d_v1-2025.05.14-000034/_ilm/remove -u videosearch_daemon:<password>
 curl -X POST http://localhost:9200/.ds-search_emptyevent_c002_730d_v1-2025.05.21-000036/_ilm/remove -u videosearch_daemon:<password>
 curl -X POST http://localhost:9200/.ds-search_emptyevent_c002_730d_v1-2025.05.28-000038/_ilm/remove -u videosearch_daemon:<password>
-curl -X POST http://localhost:9200/.ds-search_emptyevent_c002_730d_v1-2025.06.04-000040/_ilm/remove -u videosearch_daemon:<password>	
+curl -X POST http://localhost:9200/.ds-search_emptyevent_c002_730d_v1-2025.06.04-000040/_ilm/remove -u videosearch_daemon:<password>
 curl -X POST http://localhost:9200/.ds-search_emptyevent_c002_7d_v1-2025.05.28-000045/_ilm/remove -u videosearch_daemon:<password>
 curl -X POST http://localhost:9200/.ds-search_emptyevent_c002_7d_v1-2025.06.04-000048/_ilm/remove -u videosearch_daemon:<password>
 curl -X POST http://localhost:9200/.ds-search_emptyevent_c002_90d_v1-2025.04.09-000024/_ilm/remove -u videosearch_daemon:<password>

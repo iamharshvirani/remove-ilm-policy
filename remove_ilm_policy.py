@@ -26,6 +26,7 @@ ES_HOST = os.getenv('ES_HOST', 'localhost')
 ES_PORT = int(os.getenv('ES_PORT', '9200'))
 ES_USER = os.getenv('ES_USER', None)
 ES_PASSWORD = os.getenv('ES_PASSWORD', None)
+REPORT_DETAILS = os.getenv('REPORT_DETAILS', 'false').lower() in ('1', 'true', 'yes')
 
 
 def curl_request(host, port, user, password, method, path):
@@ -51,19 +52,40 @@ def curl_request(host, port, user, password, method, path):
     return None
 
 
-def get_target_backing_indices(host, port, user, password):
-    print("Searching for data streams with the old format pattern…")
+def scan_data_streams(host, port, user, password):
+    """
+    Fetches all data streams and splits into:
+     - matching backing indices
+     - excluded data stream names
+    """
+    print("Scanning data streams…")
     data = curl_request(host, port, user, password, "GET", "/_data_stream?expand_wildcards=all")
     if not data or "data_streams" not in data:
         print("[ERROR] Could not fetch data streams.")
-        return []
-    targets = []
+        return [], []
+
+    matched_indices = []
+    excluded_streams = []
     for ds in data["data_streams"]:
         if OLD_FORMAT_PATTERN.match(ds["name"]):
-            print(f"  [MATCH] {ds['name']}")
             for idx in ds["indices"]:
-                targets.append(idx["index_name"])
-    return targets
+                matched_indices.append(idx["index_name"])
+        else:
+            excluded_streams.append(ds["name"])
+    return matched_indices, excluded_streams
+
+
+def count_aliases(host, port, user, password):
+    """
+    Returns the total number of aliases in the cluster.
+    """
+    data = curl_request(host, port, user, password, "GET", "/_aliases")
+    if not data:
+        return 0
+    total = 0
+    for idx, info in data.items():
+        total += len(info.get('aliases', {}))
+    return total
 
 
 def generate_dry_run_plan(indices, host, port):
@@ -78,7 +100,7 @@ def generate_dry_run_plan(indices, host, port):
         f.write("# Commands to remove ILM policy:\n\n")
         for idx in indices:
             f.write(f"curl -X POST http://{host}:{port}/{idx}/_ilm/remove -u {ES_USER}:<password>\n")
-    print(f"Dry run complete. See {DRY_RUN_FILE}")
+    print(f"✅ Dry run complete. See {DRY_RUN_FILE}")
 
 
 def execute_ilm_removal(host, port, user, password, indices):
@@ -120,11 +142,19 @@ def main():
     group.add_argument("--execute", action="store_true")
     args = parser.parse_args()
 
-    # Prompt if missing
     if args.user and not args.password:
         args.password = getpass(f"Password for '{args.user}': ")
 
-    indices = get_target_backing_indices(args.host, args.port, args.user, args.password)
+    # Scan streams and optionally report details
+    indices, excluded = scan_data_streams(args.host, args.port, args.user, args.password)
+
+    if REPORT_DETAILS:
+        alias_count = count_aliases(args.host, args.port, args.user, args.password)
+        print(f"\n[REPORT] Total aliases in cluster: {alias_count}")
+        print(f"[REPORT] Excluded data streams ({len(excluded)}):")
+        for ds in excluded:
+            print(f"  - {ds}")
+
     if args.execute:
         execute_ilm_removal(args.host, args.port, args.user, args.password, indices)
     else:
