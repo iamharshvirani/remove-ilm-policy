@@ -1,669 +1,579 @@
-# Plan generated on: 2025-06-10T12:18:27.715770
+# Plan generated on: 2025-06-10T12:56:22.990921
 # ES host: localhost:9200
 # Commands: GET then PUT without ILM settings
 
-# GET /_index_template/search_object_c002_1825d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_1825d_v5_template
-
-# PUT /_index_template/search_object_c002_1825d_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_1825d_v5_template -d '{"index_patterns": ["search_object_c002_1825d_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_query_c002_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_query_c002_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_query_c002_v4_template
 
 # PUT /_index_template/search_query_c002_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_query_c002_v4_template -d '{"index_patterns": ["search_query_c002_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v3", "search_query_c002_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_365d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_365d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_365d_v3_template
 
 # PUT /_index_template/search_image_c002_365d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_365d_v3_template -d '{"index_patterns": ["search_image_c002_365d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_365d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_v4_template
 
 # PUT /_index_template/search_object_c002_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_v4_template -d '{"index_patterns": ["search_object_c002_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v4", "search_object_c002_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_30d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_30d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_30d_v3_template
 
 # PUT /_index_template/search_object_c002_30d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_30d_v3_template -d '{"index_patterns": ["search_object_c002_30d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v3", "search_object_c002_30d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_object_c002_180d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_180d_v5_template
-
-# PUT /_index_template/search_object_c002_180d_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_180d_v5_template -d '{"index_patterns": ["search_object_c002_180d_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_face_c002_365d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_365d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_face_c002_365d_v3_template
 
 # PUT /_index_template/search_face_c002_365d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_365d_v3_template -d '{"index_patterns": ["search_face_c002_365d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["face_mappings_v3", "search_face_c002_365d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_v2_template
 
 # PUT /_index_template/search_facegroup_c002_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_v2_template -d '{"index_patterns": ["search_facegroup_c002_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_face_c002_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_v2_template
-
-# PUT /_index_template/search_face_c002_v2_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_v2_template -d '{"index_patterns": ["search_face_c002_v2"], "template": {"mappings": {"dynamic": "strict", "properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "all_phrases": {"type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "image_url": {"index": false, "type": "text"}, "attributes": {"properties": {"class": {"properties": {"confidence": {"index": false, "type": "half_float"}, "value": {"type": "keyword"}}}}}, "state": {"type": "keyword"}, "crop_url": {"index": false, "type": "text"}}}, "camera_id": {"type": "keyword"}, "external_id": {"type": "keyword"}, "object_id": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "group_id": {"type": "keyword"}, "@version_v2": {"index": false, "type": "boolean"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
-# GET /_index_template/search_object_c002_730d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_730d_v5_template
-
-# PUT /_index_template/search_object_c002_730d_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_730d_v5_template -d '{"index_patterns": ["search_object_c002_730d_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_emptyevent_c002_1825d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_1825d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_1825d_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_1825d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_1825d_v1_template -d '{"index_patterns": ["search_emptyevent_c002_1825d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_1825d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_365d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_365d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_365d_v2_template
 
 # PUT /_index_template/search_facegroup_c002_365d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_365d_v2_template -d '{"index_patterns": ["search_facegroup_c002_365d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_365d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_trace_c002_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_trace_c002_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_trace_c002_v1_template
 
 # PUT /_index_template/search_trace_c002_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_trace_c002_v1_template -d '{"index_patterns": ["search_trace_c002_v1*"], "template": {"settings": {"index": {}}, "mappings": {"_routing": {"required": false}, "numeric_detection": false, "dynamic_date_formats": ["strict_date_optional_time", "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"], "_source": {"excludes": [], "includes": [], "enabled": true}, "dynamic": true, "dynamic_templates": [], "date_detection": true}}, "composed_of": ["trace_mappings_v1", "search_trace_c002_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_2000d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_2000d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_2000d_v2_template
 
 # PUT /_index_template/search_facegroup_c002_2000d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_2000d_v2_template -d '{"index_patterns": ["search_facegroup_c002_2000d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_2000d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_30d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_30d_v5_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_30d_v5_template
 
 # PUT /_index_template/search_object_c002_30d_v5_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_30d_v5_template -d '{"index_patterns": ["search_object_c002_30d_v5*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v5", "search_object_c002_30d_v5_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_emptyevent_c002_90d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_90d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_90d_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_90d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_90d_v1_template -d '{"index_patterns": ["search_emptyevent_c002_90d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_90d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_60d_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_60d_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_60d_v6_template
 
 # PUT /_index_template/search_object_c002_60d_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_60d_v6_template -d '{"index_patterns": ["search_object_c002_60d_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_60d_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_90d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_90d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_90d_v2_template
 
 # PUT /_index_template/search_facegroup_c002_90d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_90d_v2_template -d '{"index_patterns": ["search_facegroup_c002_90d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_90d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_object_c002_90d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_90d_v5_template
-
-# PUT /_index_template/search_object_c002_90d_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_90d_v5_template -d '{"index_patterns": ["search_object_c002_90d_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_image_c002_180d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_180d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_180d_v4_template
 
 # PUT /_index_template/search_image_c002_180d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_180d_v4_template -d '{"index_patterns": ["search_image_c002_180d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_180d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_7d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_7d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_7d_v4_template
 
 # PUT /_index_template/search_image_c002_7d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_7d_v4_template -d '{"index_patterns": ["search_image_c002_7d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_7d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_60d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_60d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_60d_v4_template
 
 # PUT /_index_template/search_object_c002_60d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_60d_v4_template -d '{"index_patterns": ["search_object_c002_60d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v4", "search_object_c002_60d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_v2_template
 
 # PUT /_index_template/search_object_c002_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_v2_template -d '{"index_patterns": ["search_object_c002_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v2", "search_object_c002_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_7d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_7d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_7d_v1_template
 
 # PUT /_index_template/search_image_c002_7d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_7d_v1_template -d '{"index_patterns": ["search_image_c002_7d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v1", "search_image_c002_7d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_31d_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_31d_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_31d_v6_template
 
 # PUT /_index_template/search_object_c002_31d_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_31d_v6_template -d '{"index_patterns": ["search_object_c002_31d_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_31d_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_queryv3_c002_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_queryv3_c002_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_queryv3_c002_v1_template
 
 # PUT /_index_template/search_queryv3_c002_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_queryv3_c002_v1_template -d '{"index_patterns": ["search_queryv3_c002_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["queryv3_mappings_v1", "search_queryv3_c002_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_face_c002_1825d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_1825d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_face_c002_1825d_v3_template
 
 # PUT /_index_template/search_face_c002_1825d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_1825d_v3_template -d '{"index_patterns": ["search_face_c002_1825d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["face_mappings_v3", "search_face_c002_1825d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_730d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_730d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_730d_v4_template
 
 # PUT /_index_template/search_image_c002_730d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_730d_v4_template -d '{"index_patterns": ["search_image_c002_730d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_730d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_2000d_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_2000d_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_2000d_v6_template
 
 # PUT /_index_template/search_object_c002_2000d_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_2000d_v6_template -d '{"index_patterns": ["search_object_c002_2000d_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_2000d_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_2000d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_2000d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_2000d_v4_template
 
 # PUT /_index_template/search_image_c002_2000d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_2000d_v4_template -d '{"index_patterns": ["search_image_c002_2000d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_2000d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_face_c002_7d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_7d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_face_c002_7d_v3_template
 
 # PUT /_index_template/search_face_c002_7d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_7d_v3_template -d '{"index_patterns": ["search_face_c002_7d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["face_mappings_v3", "search_face_c002_7d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_90d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_90d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_90d_v4_template
 
 # PUT /_index_template/search_image_c002_90d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_90d_v4_template -d '{"index_patterns": ["search_image_c002_90d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_90d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_7d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_7d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_7d_v3_template
 
 # PUT /_index_template/search_image_c002_7d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_7d_v3_template -d '{"index_patterns": ["search_image_c002_7d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_7d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_query_c002_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_query_c002_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_query_c002_v1_template
 
 # PUT /_index_template/search_query_c002_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_query_c002_v1_template -d '{"index_patterns": ["search_query_c002_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v1", "search_query_c002_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_emptyevent_c002_365d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_365d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_365d_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_365d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_365d_v1_template -d '{"index_patterns": ["search_emptyevent_c002_365d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_365d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c001_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c001_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c001_v1_template
 
 # PUT /_index_template/search_object_c001_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c001_v1_template -d '{"index_patterns": ["search_object_c001_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v1", "search_object_c001_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_emptyevent_c002_7d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_7d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_7d_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_7d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_7d_v1_template -d '{"index_patterns": ["search_emptyevent_c002_7d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_7d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_7d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_7d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_7d_v4_template
 
 # PUT /_index_template/search_object_c002_7d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_7d_v4_template -d '{"index_patterns": ["search_object_c002_7d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v4", "search_object_c002_7d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_emptyevent_c002_31d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_31d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_31d_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_31d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_31d_v1_template -d '{"index_patterns": ["search_emptyevent_c002_31d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_31d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_object_c002_1095d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_1095d_v5_template
-
-# PUT /_index_template/search_object_c002_1095d_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_1095d_v5_template -d '{"index_patterns": ["search_object_c002_1095d_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_emptyevent_c002_1095d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_1095d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_1095d_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_1095d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_1095d_v1_template -d '{"index_patterns": ["search_emptyevent_c002_1095d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_1095d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_60d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_60d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_60d_v3_template
 
 # PUT /_index_template/search_image_c002_60d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_60d_v3_template -d '{"index_patterns": ["search_image_c002_60d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_60d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_2000d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_2000d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_2000d_v3_template
 
 # PUT /_index_template/search_image_c002_2000d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_2000d_v3_template -d '{"index_patterns": ["search_image_c002_2000d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_2000d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_v3_template
 
 # PUT /_index_template/search_object_c002_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_v3_template -d '{"index_patterns": ["search_object_c002_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v3", "search_object_c002_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_face_c002_1095d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_1095d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_face_c002_1095d_v3_template
 
 # PUT /_index_template/search_face_c002_1095d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_1095d_v3_template -d '{"index_patterns": ["search_face_c002_1095d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["face_mappings_v3", "search_face_c002_1095d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_v6_template
 
 # PUT /_index_template/search_object_c002_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_v6_template -d '{"index_patterns": ["search_object_c002_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_1825d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_1825d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_1825d_v4_template
 
 # PUT /_index_template/search_image_c002_1825d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_1825d_v4_template -d '{"index_patterns": ["search_image_c002_1825d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_1825d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_emptyevent_c002_730d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_730d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_730d_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_730d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_730d_v1_template -d '{"index_patterns": ["search_emptyevent_c002_730d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_730d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_1095d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_1095d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_1095d_v2_template
 
 # PUT /_index_template/search_facegroup_c002_1095d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_1095d_v2_template -d '{"index_patterns": ["search_facegroup_c002_1095d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_1095d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_v3_template
 
 # PUT /_index_template/search_image_c002_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_v3_template -d '{"index_patterns": ["search_image_c002_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_face_c002_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_v3_template
-
-# PUT /_index_template/search_face_c002_v3_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_v3_template -d '{"index_patterns": ["search_face_c002_v3"], "template": {"mappings": {"dynamic": "strict", "properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "all_phrases": {"type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "image_url": {"index": false, "type": "text"}, "attributes": {"properties": {"class": {"properties": {"confidence": {"index": false, "type": "half_float"}, "value": {"type": "keyword"}}}}}, "state": {"type": "keyword"}, "crop_url": {"index": false, "type": "text"}}}, "camera_id": {"type": "keyword"}, "external_id": {"type": "keyword"}, "object_id": {"type": "keyword"}, "search_latency": {"type": "integer"}, "@version_v3": {"index": false, "type": "boolean"}, "cluster_id": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "group_id": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}, "image_id": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_query_c002_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_query_c002_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_query_c002_v2_template
 
 # PUT /_index_template/search_query_c002_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_query_c002_v2_template -d '{"index_patterns": ["search_query_c002_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v1", "search_query_c002_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_face_c002_180d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_180d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_face_c002_180d_v3_template
 
 # PUT /_index_template/search_face_c002_180d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_180d_v3_template -d '{"index_patterns": ["search_face_c002_180d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["face_mappings_v3", "search_face_c002_180d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_1095d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_1095d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_1095d_v3_template
 
 # PUT /_index_template/search_image_c002_1095d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_1095d_v3_template -d '{"index_patterns": ["search_image_c002_1095d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_1095d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_30d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_30d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_30d_v2_template
 
 # PUT /_index_template/search_image_c002_30d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_30d_v2_template -d '{"index_patterns": ["search_image_c002_30d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v2", "search_image_c002_30d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_face_c002_31d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_31d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_face_c002_31d_v3_template
 
 # PUT /_index_template/search_face_c002_31d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_31d_v3_template -d '{"index_patterns": ["search_face_c002_31d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["face_mappings_v3", "search_face_c002_31d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_emptyevent_c002_2000d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_2000d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_2000d_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_2000d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_2000d_v1_template -d '{"index_patterns": ["search_emptyevent_c002_2000d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_2000d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_90d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_90d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_90d_v3_template
 
 # PUT /_index_template/search_image_c002_90d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_90d_v3_template -d '{"index_patterns": ["search_image_c002_90d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_90d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_object_c002_2000d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_2000d_v5_template
-
-# PUT /_index_template/search_object_c002_2000d_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_2000d_v5_template -d '{"index_patterns": ["search_object_c002_2000d_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_image_c001_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c001_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c001_v1_template
 
 # PUT /_index_template/search_image_c001_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c001_v1_template -d '{"index_patterns": ["search_image_c001_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v1", "search_image_c001_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_object_c002_60d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_60d_v5_template
-
-# PUT /_index_template/search_object_c002_60d_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_60d_v5_template -d '{"index_patterns": ["search_object_c002_60d_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_face_c002_2000d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_2000d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_face_c002_2000d_v3_template
 
 # PUT /_index_template/search_face_c002_2000d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_2000d_v3_template -d '{"index_patterns": ["search_face_c002_2000d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["face_mappings_v3", "search_face_c002_2000d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_1825d_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_1825d_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_1825d_v6_template
 
 # PUT /_index_template/search_object_c002_1825d_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_1825d_v6_template -d '{"index_patterns": ["search_object_c002_1825d_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_1825d_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_90d_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_90d_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_90d_v6_template
 
 # PUT /_index_template/search_object_c002_90d_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_90d_v6_template -d '{"index_patterns": ["search_object_c002_90d_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_90d_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_60d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_60d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_60d_v2_template
 
 # PUT /_index_template/search_facegroup_c002_60d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_60d_v2_template -d '{"index_patterns": ["search_facegroup_c002_60d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_60d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_31d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_31d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_31d_v4_template
 
 # PUT /_index_template/search_image_c002_31d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_31d_v4_template -d '{"index_patterns": ["search_image_c002_31d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_31d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_730d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_730d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_730d_v2_template
 
 # PUT /_index_template/search_facegroup_c002_730d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_730d_v2_template -d '{"index_patterns": ["search_facegroup_c002_730d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_730d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_emptyevent_c002_60d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_60d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_60d_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_60d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_60d_v1_template -d '{"index_patterns": ["search_emptyevent_c002_60d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_60d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_object_c002_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_v5_template
-
-# PUT /_index_template/search_object_c002_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_v5_template -d '{"index_patterns": ["search_object_c002_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
-# GET /_index_template/search_face_c002_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_v1_template
-
-# PUT /_index_template/search_face_c002_v1_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_v1_template -d '{"index_patterns": ["search_face_c002_v1"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "all_phrases": {"type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "image_url": {"index": false, "type": "text"}, "attributes": {"properties": {"class": {"properties": {"confidence": {"index": false, "type": "half_float"}, "value": {"type": "keyword"}}}}}, "state": {"type": "keyword"}, "crop_url": {"index": false, "type": "text"}}}, "camera_id": {"type": "keyword"}, "external_id": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "group_id": {"type": "keyword"}, "@version_v2": {"index": false, "type": "boolean"}, "image_id": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_emptyevent_c002_180d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_180d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_180d_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_180d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_180d_v1_template -d '{"index_patterns": ["search_emptyevent_c002_180d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_180d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_30d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_30d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_30d_v4_template
 
 # PUT /_index_template/search_object_c002_30d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_30d_v4_template -d '{"index_patterns": ["search_object_c002_30d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v4", "search_object_c002_30d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_face_c002_730d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_730d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_face_c002_730d_v3_template
 
 # PUT /_index_template/search_face_c002_730d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_730d_v3_template -d '{"index_patterns": ["search_face_c002_730d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["face_mappings_v3", "search_face_c002_730d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_query_c002_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_query_c002_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_query_c002_v3_template
 
 # PUT /_index_template/search_query_c002_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_query_c002_v3_template -d '{"index_patterns": ["search_query_c002_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v2", "search_query_c002_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_180d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_180d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_180d_v2_template
 
 # PUT /_index_template/search_facegroup_c002_180d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_180d_v2_template -d '{"index_patterns": ["search_facegroup_c002_180d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_180d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_v4_template
 
 # PUT /_index_template/search_image_c002_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_v4_template -d '{"index_patterns": ["search_image_c002_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_1095d_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_1095d_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_1095d_v6_template
 
 # PUT /_index_template/search_object_c002_1095d_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_1095d_v6_template -d '{"index_patterns": ["search_object_c002_1095d_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_1095d_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_30d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_30d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_30d_v2_template
 
 # PUT /_index_template/search_object_c002_30d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_30d_v2_template -d '{"index_patterns": ["search_object_c002_30d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v2", "search_object_c002_30d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_180d_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_180d_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_180d_v6_template
 
 # PUT /_index_template/search_object_c002_180d_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_180d_v6_template -d '{"index_patterns": ["search_object_c002_180d_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_180d_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_v1_template
 
 # PUT /_index_template/search_facegroup_c002_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_v1_template -d '{"index_patterns": ["search_facegroup_c002_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v1", "search_facegroup_c002_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_60d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_60d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_60d_v2_template
 
 # PUT /_index_template/search_image_c002_60d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_60d_v2_template -d '{"index_patterns": ["search_image_c002_60d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v2", "search_image_c002_60d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_7d_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_7d_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_7d_v6_template
 
 # PUT /_index_template/search_object_c002_7d_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_7d_v6_template -d '{"index_patterns": ["search_object_c002_7d_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_7d_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_30d_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_30d_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_30d_v1_template
 
 # PUT /_index_template/search_image_c002_30d_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_30d_v1_template -d '{"index_patterns": ["search_image_c002_30d_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v1", "search_image_c002_30d_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_v2_template
 
 # PUT /_index_template/search_image_c002_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_v2_template -d '{"index_patterns": ["search_image_c002_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v2", "search_image_c002_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_365d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_365d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_365d_v4_template
 
 # PUT /_index_template/search_image_c002_365d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_365d_v4_template -d '{"index_patterns": ["search_image_c002_365d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_365d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_7d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_7d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_7d_v3_template
 
 # PUT /_index_template/search_object_c002_7d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_7d_v3_template -d '{"index_patterns": ["search_object_c002_7d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v3", "search_object_c002_7d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_7d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_7d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_7d_v2_template
 
 # PUT /_index_template/search_facegroup_c002_7d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_7d_v2_template -d '{"index_patterns": ["search_facegroup_c002_7d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_7d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_face_c002_90d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_90d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_face_c002_90d_v3_template
 
 # PUT /_index_template/search_face_c002_90d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_90d_v3_template -d '{"index_patterns": ["search_face_c002_90d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["face_mappings_v3", "search_face_c002_90d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_object_c002_365d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_365d_v5_template
-
-# PUT /_index_template/search_object_c002_365d_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_365d_v5_template -d '{"index_patterns": ["search_object_c002_365d_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_image_c002_60d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_60d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_60d_v4_template
 
 # PUT /_index_template/search_image_c002_60d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_60d_v4_template -d '{"index_patterns": ["search_image_c002_60d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_60d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_v1_template
 
 # PUT /_index_template/search_image_c002_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_v1_template -d '{"index_patterns": ["search_image_c002_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v1", "search_image_c002_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_object_c002_31d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_31d_v5_template
-
-# PUT /_index_template/search_object_c002_31d_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_31d_v5_template -d '{"index_patterns": ["search_object_c002_31d_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_image_c002_30d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_30d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_30d_v3_template
 
 # PUT /_index_template/search_image_c002_30d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_30d_v3_template -d '{"index_patterns": ["search_image_c002_30d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_30d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_1825d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_1825d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_1825d_v3_template
 
 # PUT /_index_template/search_image_c002_1825d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_1825d_v3_template -d '{"index_patterns": ["search_image_c002_1825d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_1825d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_v1_template
 
 # PUT /_index_template/search_object_c002_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_v1_template -d '{"index_patterns": ["search_object_c002_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v1", "search_object_c002_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_1825d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_1825d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_1825d_v2_template
 
 # PUT /_index_template/search_facegroup_c002_1825d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_1825d_v2_template -d '{"index_patterns": ["search_facegroup_c002_1825d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_1825d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_1095d_v4_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_1095d_v4_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_1095d_v4_template
 
 # PUT /_index_template/search_image_c002_1095d_v4_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_1095d_v4_template -d '{"index_patterns": ["search_image_c002_1095d_v4*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v4", "search_image_c002_1095d_v4_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_365d_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_365d_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_365d_v6_template
 
 # PUT /_index_template/search_object_c002_365d_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_365d_v6_template -d '{"index_patterns": ["search_object_c002_365d_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_365d_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_730d_v6_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_730d_v6_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_730d_v6_template
 
 # PUT /_index_template/search_object_c002_730d_v6_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_730d_v6_template -d '{"index_patterns": ["search_object_c002_730d_v6*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v6", "search_object_c002_730d_v6_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_60d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_60d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_60d_v3_template
 
 # PUT /_index_template/search_object_c002_60d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_60d_v3_template -d '{"index_patterns": ["search_object_c002_60d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v3", "search_object_c002_60d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_facegroup_c002_31d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_facegroup_c002_31d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_31d_v2_template
 
 # PUT /_index_template/search_facegroup_c002_31d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_facegroup_c002_31d_v2_template -d '{"index_patterns": ["search_facegroup_c002_31d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["facegroup_mappings_v2", "search_facegroup_c002_31d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_object_c002_7d_v5_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_7d_v5_template
-
-# PUT /_index_template/search_object_c002_7d_v5_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_7d_v5_template -d '{"index_patterns": ["search_object_c002_7d_v5"], "template": {"mappings": {"properties": {"all_bboxes": {"properties": {"w": {"index": false, "type": "half_float"}, "h": {"index": false, "type": "half_float"}, "x": {"index": false, "type": "half_float"}, "y": {"index": false, "type": "half_float"}}}, "@expire_after": {"format": "epoch_millis", "type": "date"}, "object_ids": {"type": "keyword"}, "all_phrases": {"type": "text"}, "image_url": {"index": false, "type": "text"}, "latency": {"type": "integer"}, "objects": {"properties": {"signature_len": {"type": "short"}, "signature_512": {"dims": 512, "type": "dense_vector"}, "rois": {"type": "keyword"}, "signature_2048": {"dims": 2048, "type": "dense_vector"}, "signature_1024": {"dims": 1024, "type": "dense_vector"}, "attributes": {"type": "flattened"}, "state": {"type": "keyword"}}}, "camera_id": {"type": "keyword"}, "camera_address": {"type": "keyword"}, "external_id": {"type": "keyword"}, "camera_tags": {"type": "keyword"}, "search_latency": {"type": "integer"}, "cluster_id": {"type": "keyword"}, "location_name": {"type": "keyword"}, "rois": {"type": "keyword"}, "@timestamp": {"format": "epoch_millis", "type": "date"}, "@version_v5": {"index": false, "type": "boolean"}, "account_id": {"type": "keyword"}, "all_objects": {"type": "keyword"}, "event_type": {"type": "keyword"}, "creator_id": {"type": "keyword"}, "location": {"type": "geo_point"}, "image_id": {"type": "keyword"}, "camera_name": {"type": "keyword"}}}}, "composed_of": [], "priority": 500, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
-
 # GET /_index_template/search_user_c002_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_user_c002_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_user_c002_v1_template
 
 # PUT /_index_template/search_user_c002_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_user_c002_v1_template -d '{"index_patterns": ["search_user_c002_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["user_mappings_v1", "search_user_c002_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_730d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_730d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_730d_v3_template
 
 # PUT /_index_template/search_image_c002_730d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_730d_v3_template -d '{"index_patterns": ["search_image_c002_730d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_730d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_emptyevent_c002_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_emptyevent_c002_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_v1_template
 
 # PUT /_index_template/search_emptyevent_c002_v1_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_emptyevent_c002_v1_template -d '{"index_patterns": ["search_emptyevent_c002_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["emptyevent_mappings_v1", "search_emptyevent_c002_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_7d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_7d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_7d_v2_template
 
 # PUT /_index_template/search_image_c002_7d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_7d_v2_template -d '{"index_patterns": ["search_image_c002_7d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v2", "search_image_c002_7d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
-# GET /_index_template/search_camera_c002_v1_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_camera_c002_v1_template
-
-# PUT /_index_template/search_camera_c002_v1_template
-curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_camera_c002_v1_template -d '{"index_patterns": ["search_camera_c002_v1"], "composed_of": ["camera_mappings_v1", "search_camera_c002_v1_settings"], "priority": 200}'
-
 # GET /_index_template/search_image_c002_31d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_31d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_31d_v3_template
 
 # PUT /_index_template/search_image_c002_31d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_31d_v3_template -d '{"index_patterns": ["search_image_c002_31d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_31d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_image_c002_180d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_image_c002_180d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_image_c002_180d_v3_template
 
 # PUT /_index_template/search_image_c002_180d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_image_c002_180d_v3_template -d '{"index_patterns": ["search_image_c002_180d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["image_mappings_v3", "search_image_c002_180d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_object_c002_7d_v2_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_object_c002_7d_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_object_c002_7d_v2_template
 
 # PUT /_index_template/search_object_c002_7d_v2_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_object_c002_7d_v2_template -d '{"index_patterns": ["search_object_c002_7d_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["object_mappings_v2", "search_object_c002_7d_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
 
 # GET /_index_template/search_face_c002_60d_v3_template
-curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' http://localhost:9200/_index_template/search_face_c002_60d_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json'     http://localhost:9200/_index_template/search_face_c002_60d_v3_template
 
 # PUT /_index_template/search_face_c002_60d_v3_template
 curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json'     http://localhost:9200/_index_template/search_face_c002_60d_v3_template -d '{"index_patterns": ["search_face_c002_60d_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["face_mappings_v3", "search_face_c002_60d_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
