@@ -7,159 +7,156 @@ import subprocess
 from datetime import datetime
 from getpass import getpass
 from pathlib import Path
-
-# Optional: install python-dotenv with `pip install python-dotenv`
 from dotenv import load_dotenv
 
 # ------------------------------------------------
-# Load environment variables from a .env file
+# Load environment variables
 # ------------------------------------------------
 env_path = Path(__file__).parent / '.env'
 load_dotenv(dotenv_path=env_path)
 
-# --- Configuration ---
+# Configuration
 OLD_FORMAT_PATTERN = re.compile(r".*_c\d{3}_.*")
-DRY_RUN_FILE = "ilm_removal_plan.txt"
+DRY_RUN_FILE = "ilm_template_removal_plan.txt"
 
-# Read defaults from env
+# Environment defaults
 ES_HOST = os.getenv('ES_HOST', 'localhost')
 ES_PORT = int(os.getenv('ES_PORT', '9200'))
 ES_USER = os.getenv('ES_USER', None)
 ES_PASSWORD = os.getenv('ES_PASSWORD', None)
-REPORT_DETAILS = os.getenv('REPORT_DETAILS', 'false').lower() in ('1', 'true', 'yes')
+REPORT_DETAILS = os.getenv('REPORT_DETAILS', 'false').lower() in ('1','true','yes')
 
 
-def curl_request(host, port, user, password, method, path):
-    """
-    Runs a curl command and returns parsed JSON (or None on failure).
-    """
+def curl_request(host, port, user, password, method, path, data=None):
     url = f"http://{host}:{port}{path}"
-    cmd = [
-        "curl", "-s",
-        "-u", f"{user}:{password}",
-        "-H", "Content-Type: application/json",
-        "-H", "Accept: application/json",
-        "-X", method,
-        url
-    ]
+    cmd = ["curl", "-s", "-u", f"{user}:{password}", "-H", "Content-Type: application/json", "-H", "Accept: application/json", "-X", method]
+    if data is not None:
+        cmd += ["-d", json.dumps(data)]
+    cmd.append(url)
     try:
-        output = subprocess.check_output(cmd)
-        return json.loads(output)
+        out = subprocess.check_output(cmd)
+        return json.loads(out)
     except subprocess.CalledProcessError as e:
-        print(f"[ERROR] curl failed: {e}")
+        print(f"[ERROR] curl failed on {path}: {e}")
     except json.JSONDecodeError:
-        print("[ERROR] Failed to parse JSON from Elasticsearch response")
+        print(f"[ERROR] Cannot parse JSON response from {path}")
     return None
 
 
-def scan_data_streams(host, port, user, password):
-    """
-    Fetches all data streams and splits into:
-     - matching backing indices
-     - excluded data stream names
-    """
-    print("Scanning data streams…")
-    data = curl_request(host, port, user, password, "GET", "/_data_stream?expand_wildcards=all")
-    if not data or "data_streams" not in data:
-        print("[ERROR] Could not fetch data streams.")
-        return [], []
-
-    matched_indices = []
-    excluded_streams = []
-    for ds in data["data_streams"]:
-        if OLD_FORMAT_PATTERN.match(ds["name"]):
-            for idx in ds["indices"]:
-                matched_indices.append(idx["index_name"])
-        else:
-            excluded_streams.append(ds["name"])
-    return matched_indices, excluded_streams
-
-
-def count_aliases(host, port, user, password):
-    """
-    Returns the total number of aliases in the cluster.
-    """
-    data = curl_request(host, port, user, password, "GET", "/_aliases")
-    if not data:
-        return 0
-    total = 0
-    for idx, info in data.items():
-        total += len(info.get('aliases', {}))
-    return total
+def scan_templates(host, port, user, password):
+    """Fetch composable and legacy templates, return matching and excluded."""
+    matched = []
+    excluded = []
+    # Composable templates
+    comp = curl_request(host, port, user, password, "GET", "/_index_template")
+    if comp and 'index_templates' in comp:
+        for entry in comp['index_templates']:
+            name = entry['name']
+            patterns = entry['index_template'].get('index_patterns', [])
+            if any(OLD_FORMAT_PATTERN.match(p) for p in patterns):
+                matched.append(('composable', name))
+            else:
+                excluded.append(name)
+    # Legacy templates
+    legacy = curl_request(host, port, user, password, "GET", "/_template")
+    if legacy:
+        for name, body in legacy.items():
+            patterns = body.get('index_patterns', [])
+            if any(OLD_FORMAT_PATTERN.match(p) for p in patterns):
+                matched.append(('legacy', name))
+            else:
+                excluded.append(name)
+    return matched, excluded
 
 
-def generate_dry_run_plan(indices, host, port):
-    if not indices:
-        print("No matching indices found. Dry run file will not be created.")
+def remove_lifecycle_from_template(host, port, user, password, ttype, name):
+    """GET template, strip ILM settings, PUT back."""
+    if ttype == 'composable':
+        path = f"/_index_template/{name}"
+        resp = curl_request(host, port, user, password, "GET", path)
+        tmpl = resp['index_templates'][0]['index_template']
+        # Remove ILM settings
+        settings = tmpl.get('template', {}).get('settings', {})
+        settings.get('index', {}).pop('lifecycle', None)
+        # PUT back full template body
+        data = tmpl
+        return 'PUT', path, data
+    else:
+        path = f"/_template/{name}"
+        resp = curl_request(host, port, user, password, "GET", path)
+        tmpl = resp[name]
+        settings = tmpl.get('settings', {})
+        settings.get('index', {}).pop('lifecycle', None)
+        # Legacy body includes settings, mappings, aliases
+        data = {
+            'index_patterns': tmpl.get('index_patterns', []),
+            'settings': settings,
+            'mappings': tmpl.get('mappings', {}),
+            'aliases': tmpl.get('aliases', {})
+        }
+        return 'PUT', path, data
+
+
+def generate_dry_run_plan(templates, host, port):
+    if not templates:
+        print("No matching templates found. No plan created.")
         return
-    print("\nGenerating dry run plan (no changes will be made)…")
-    with open(DRY_RUN_FILE, "w") as f:
-        f.write(f"# Dry run plan generated on: {datetime.now().isoformat()}\n")
-        f.write(f"# Elasticsearch: http://{host}:{port}\n")
-        f.write(f"# Found {len(indices)} indices matching old format\n")
-        f.write("# Commands to remove ILM policy:\n\n")
-        for idx in indices:
-            f.write(f"curl -X POST http://{host}:{port}/{idx}/_ilm/remove -u {ES_USER}:<password>\n")
-    print(f"✅ Dry run complete. See {DRY_RUN_FILE}")
+    print(f"\nWriting dry-run plan to {DRY_RUN_FILE}…")
+    with open(DRY_RUN_FILE, 'w') as f:
+        f.write(f"# Plan generated on: {datetime.now().isoformat()}\n")
+        f.write(f"# ES host: {host}:{port}\n# Commands: GET then PUT without ILM settings\n\n")
+        for ttype, name in templates:
+            method, path, data = remove_lifecycle_from_template(host, port, ES_USER, ES_PASSWORD, ttype, name)
+            # GET
+            f.write(f"# GET {path}\n")
+            f.write(f"curl -s -u {ES_USER}:<password> -H 'Accept: application/json' http://{host}:{port}{path}\n\n")
+            # PUT
+            body = json.dumps(data)
+            f.write(f"# PUT {path}\n")
+            f.write(f"curl -X PUT -u {ES_USER}:<password> -H 'Content-Type: application/json' \
+")
+            f.write(f"    http://{host}:{port}{path} -d '{body}'\n\n")
+    print("✅ Dry-run plan written.")
 
 
-def execute_ilm_removal(host, port, user, password, indices):
-    if not indices:
-        print("No matching indices to operate on.")
+def execute_removal(templates, host, port):
+    if not templates:
+        print("No matching templates to update.")
         return
     print("\n--- EXECUTE MODE ---")
-    for idx in indices:
-        print(f"  - {idx}")
-    confirm = input("\nType 'proceed' to remove ILM from all above: ")
-    if confirm.strip().lower() != "proceed":
+    confirm = input("Type 'proceed' to remove ILM from these templates: ")
+    if confirm.strip().lower() != 'proceed':
         print("Aborted.")
         return
-
-    successes = failures = 0
-    for idx in indices:
-        print(f"Removing ILM from {idx}…", end=" ")
-        result = curl_request(host, port, user, password, "POST", f"/{idx}/_ilm/remove")
-        if result is not None:
-            print("OK")
-            successes += 1
-        else:
-            print("FAIL")
-            failures += 1
-
-    print(f"\nDone: {successes} succeeded, {failures} failed.")
+    for ttype, name in templates:
+        method, path, data = remove_lifecycle_from_template(host, port, ES_USER, ES_PASSWORD, ttype, name)
+        print(f"Updating {ttype} template '{name}'…", end=' ')
+        resp = curl_request(host, port, ES_USER, ES_PASSWORD, method, path, data)
+        print("OK" if resp is not None else "FAIL")
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Remove ILM from old-format data-stream backing indices"
-    )
-    parser.add_argument("--host", default=ES_HOST, help="Elasticsearch host")
-    parser.add_argument("--port", type=int, default=ES_PORT, help="Elasticsearch port")
-    parser.add_argument("--user", default=ES_USER, help="Elasticsearch username")
-    parser.add_argument("--password", default=ES_PASSWORD, help="Elasticsearch password")
+    parser = argparse.ArgumentParser(description="Freeze data streams by removing ILM from templates")
+    parser.add_argument('--host', default=ES_HOST)
+    parser.add_argument('--port', type=int, default=ES_PORT)
+    parser.add_argument('--user', default=ES_USER)
+    parser.add_argument('--password', default=ES_PASSWORD)
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--dry-run", action="store_true", default=True)
-    group.add_argument("--execute", action="store_true")
+    group.add_argument('--dry-run', action='store_true', default=True)
+    group.add_argument('--execute', action='store_true')
     args = parser.parse_args()
 
     if args.user and not args.password:
         args.password = getpass(f"Password for '{args.user}': ")
 
-    # Scan streams and optionally report details
-    indices, excluded = scan_data_streams(args.host, args.port, args.user, args.password)
-
+    templates, excluded = scan_templates(args.host, args.port, args.user, args.password)
     if REPORT_DETAILS:
-        alias_count = count_aliases(args.host, args.port, args.user, args.password)
-        print(f"\n[REPORT] Total aliases in cluster: {alias_count}")
-        print(f"[REPORT] Excluded data streams ({len(excluded)}):")
-        for ds in excluded:
-            print(f"  - {ds}")
+        print(f"\n[REPORT] Found {len(templates)} matching templates, {len(excluded)} excluded templates")
 
     if args.execute:
-        execute_ilm_removal(args.host, args.port, args.user, args.password, indices)
+        execute_removal(templates, args.host, args.port)
     else:
-        generate_dry_run_plan(indices, args.host, args.port)
+        generate_dry_run_plan(templates, args.host, args.port)
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
