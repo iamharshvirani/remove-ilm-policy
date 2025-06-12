@@ -18,6 +18,7 @@ load_dotenv(dotenv_path=env_path)
 # Configuration
 OLD_FORMAT_PATTERN = re.compile(r".*_c\d{3}_.*")
 DRY_RUN_FILE = "ilm_template_removal_plan.txt"
+LIFECYCLE_LIST_FILE = "templates_with_lifecycle.txt"
 
 # Environment defaults
 ES_HOST = os.getenv('ES_HOST', 'localhost')
@@ -25,7 +26,6 @@ ES_PORT = int(os.getenv('ES_PORT', '9200'))
 ES_USER = os.getenv('ES_USER', None)
 ES_PASSWORD = os.getenv('ES_PASSWORD', None)
 REPORT_DETAILS = os.getenv('REPORT_DETAILS', 'false').lower() in ('1','true','yes')
-
 
 def curl_request(host, port, user, password, method, path, data=None, timeout=10):
     url = f"http://{host}:{port}{path}"
@@ -41,24 +41,16 @@ def curl_request(host, port, user, password, method, path, data=None, timeout=10
         return json.loads(out)
     except subprocess.CalledProcessError as e:
         error_output = e.output.decode().strip()
-        if not error_output:
-            error_message = (
-                f"Connection to http://{host}:{port} failed. "
-                "Please ensure Elasticsearch is running and accessible."
-            )
-        else:
-            error_message = error_output
-        print(f"[ERROR] curl failed on {path} (exit code {e.returncode}):\n{error_message}")
+        msg = error_output or f"Connection to {url} failed."
+        print(f"[ERROR] curl failed on {path} (exit code {e.returncode}):\n{msg}")
     except json.JSONDecodeError:
         print(f"[ERROR] Cannot parse JSON response from {path}")
     except Exception as ex:
         print(f"[ERROR] Unexpected error in curl_request: {ex}")
     return None
 
-
-
 def template_has_lifecycle(host, port, user, password, name):
-    """Return True if the composable template has ILM settings"""
+    """Return True if the composable template has ILM settings."""
     path = f"/_index_template/{name}"
     resp = curl_request(host, port, user, password, "GET", path)
     if not resp or 'index_templates' not in resp:
@@ -67,9 +59,8 @@ def template_has_lifecycle(host, port, user, password, name):
     settings = tmpl.get('template', {}).get('settings', {})
     return 'lifecycle' in settings.get('index', {})
 
-
 def scan_templates(host, port, user, password):
-    """Fetch composable templates, filter by pattern and ILM presence"""
+    """Fetch composable templates, filter by OLD_FORMAT_PATTERN and ILM presence."""
     candidates = []
     skipped = []
     comp = curl_request(host, port, user, password, "GET", "/_index_template")
@@ -77,9 +68,9 @@ def scan_templates(host, port, user, password):
         for entry in comp['index_templates']:
             name = entry['name']
             # Skip templates containing 'query' or 'user'
-            if 'query' in name or 'user' in name:
-                skipped.append(name)
-                continue
+            # if 'query' in name or 'user' in name:
+            #     skipped.append(name)
+            #     continue# skip legacy filtering here; only OLD_FORMAT_PATTERN applies
             patterns = entry['index_template'].get('index_patterns', [])
             if any(OLD_FORMAT_PATTERN.match(p) for p in patterns):
                 if template_has_lifecycle(host, port, user, password, name):
@@ -88,17 +79,13 @@ def scan_templates(host, port, user, password):
                     skipped.append(name)
     return candidates, skipped
 
-
 def remove_lifecycle_from_template(host, port, user, password, name):
     """GET composable template, strip ILM settings, PUT back."""
     path = f"/_index_template/{name}"
     resp = curl_request(host, port, user, password, "GET", path)
     tmpl = resp['index_templates'][0]['index_template']
-    # Remove ILM settings
     tmpl.get('template', {}).get('settings', {}).get('index', {}).pop('lifecycle', None)
-    # Return PUT data
     return 'PUT', path, tmpl
-
 
 def generate_dry_run_plan(templates, host, port):
     if not templates:
@@ -109,20 +96,15 @@ def generate_dry_run_plan(templates, host, port):
         f.write(f"# Plan generated on: {datetime.now().isoformat()}\n")
         f.write(f"# ES host: {host}:{port}\n# Commands: GET then PUT without ILM settings\n\n")
         for name in templates:
-            # GET command
             f.write(f"# GET /_index_template/{name}\n")
-            f.write(f"curl -s -u {ES_USER}:<password> -H 'Accept: application/json' \
-")
+            f.write(f"curl -s -u {ES_USER}:<password> -H 'Accept: application/json' \\\n")
             f.write(f"    http://{host}:{port}/_index_template/{name}\n\n")
-            # PUT command
             method, path, data = remove_lifecycle_from_template(host, port, ES_USER, ES_PASSWORD, name)
             body = json.dumps(data)
             f.write(f"# PUT {path}\n")
-            f.write(f"curl -X PUT -u {ES_USER}:<password> -H 'Content-Type: application/json' \
-")
+            f.write(f"curl -X PUT -u {ES_USER}:<password> -H 'Content-Type: application/json' \\\n")
             f.write(f"    http://{host}:{port}{path} -d '{body}'\n\n")
     print("✅ Dry-run plan written.")
-
 
 def execute_removal(templates, host, port):
     if not templates:
@@ -138,38 +120,59 @@ def execute_removal(templates, host, port):
         resp = curl_request(host, port, ES_USER, ES_PASSWORD, method, path, data)
         print("OK" if resp else "FAIL")
 
+def list_templates_with_lifecycle(host, port, user, password, out_file):
+    """Scan all composable templates and write those with ILM to out_file."""
+    comp = curl_request(host, port, user, password, "GET", "/_index_template")
+    if not comp or 'index_templates' not in comp:
+        print("Failed to fetch index templates.")
+        return
+    names = []
+    for entry in comp['index_templates']:
+        name = entry['name']
+        if template_has_lifecycle(host, port, user, password, name):
+            names.append(name)
+
+    with open(out_file, 'w') as f:
+        for n in names:
+            f.write(n + "\n")
+    print(f"Found {len(names)} templates with ILM; written to {out_file}")
 
 def main():
-    parser = argparse.ArgumentParser(description="Freeze data streams by removing ILM from composable templates")
-    parser.add_argument('--host', default=ES_HOST)
-    parser.add_argument('--port', type=int, default=ES_PORT)
-    parser.add_argument('--user', default=ES_USER)
+    parser = argparse.ArgumentParser(
+        description="Manage ILM on composable index templates"
+    )
+    parser.add_argument('--host',     default=ES_HOST)
+    parser.add_argument('--port',     type=int, default=ES_PORT)
+    parser.add_argument('--user',     default=ES_USER)
     parser.add_argument('--password', default=ES_PASSWORD)
     group = parser.add_mutually_exclusive_group()
-    group.add_argument('--dry-run', action='store_true', default=True)
-    group.add_argument('--execute', action='store_true')
-    args = parser.parse_args()
+    group.add_argument('--dry-run',        action='store_true', default=True)
+    group.add_argument('--execute',        action='store_true')
+    group.add_argument('--list-lifecycle', action='store_true',
+                       help="List all composable templates that still have an ILM policy")
 
+    args = parser.parse_args()
     if args.user and not args.password:
         args.password = getpass(f"Password for '{args.user}': ")
 
+    # --list-lifecycle takes precedence
+    if args.list_lifecycle:
+        list_templates_with_lifecycle(
+            args.host, args.port, args.user, args.password, LIFECYCLE_LIST_FILE
+        )
+        return
+
+    # existing flow: pattern-based dry-run or execute
     templates, skipped = scan_templates(args.host, args.port, args.user, args.password)
-    report_content = f"\n[REPORT] Will update {len(templates)} templates; skipped {len(skipped)} without ILM settings\n"
-    for name in skipped:
-        report_content += f"  - {name}\n"
-
-    # Print report to console
-    print(report_content)
-
-    # Write report to file
-    with open('report_details.txt', 'w') as report_file:
-        report_file.write(report_content)
+    report = f"\n[REPORT] Will update {len(templates)} templates; skipped {len(skipped)} without ILM\n"
+    print(report)
+    with open('report_details.txt','w') as rf:
+        rf.write(report)
 
     if args.execute:
         execute_removal(templates, args.host, args.port)
     else:
         generate_dry_run_plan(templates, args.host, args.port)
-
 
 if __name__ == '__main__':
     main()
