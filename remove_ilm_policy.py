@@ -76,6 +76,10 @@ def scan_templates(host, port, user, password):
     if comp and 'index_templates' in comp:
         for entry in comp['index_templates']:
             name = entry['name']
+            # Skip templates containing 'query' or 'user'
+            if 'query' in name or 'user' in name:
+                skipped.append(name)
+                continue
             patterns = entry['index_template'].get('index_patterns', [])
             if any(OLD_FORMAT_PATTERN.match(p) for p in patterns):
                 if template_has_lifecycle(host, port, user, password, name):
@@ -150,10 +154,16 @@ def main():
         args.password = getpass(f"Password for '{args.user}': ")
 
     templates, skipped = scan_templates(args.host, args.port, args.user, args.password)
-    if REPORT_DETAILS:
-        print(f"\n[REPORT] Will update {len(templates)} templates; skipped {len(skipped)} without ILM settings")
-        for name in skipped:
-            print(f"  - {name}")
+    report_content = f"\n[REPORT] Will update {len(templates)} templates; skipped {len(skipped)} without ILM settings\n"
+    for name in skipped:
+        report_content += f"  - {name}\n"
+
+    # Print report to console
+    print(report_content)
+
+    # Write report to file
+    with open('report_details.txt', 'w') as report_file:
+        report_file.write(report_content)
 
     if args.execute:
         execute_removal(templates, args.host, args.port)
