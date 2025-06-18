@@ -19,6 +19,7 @@ load_dotenv(dotenv_path=env_path)
 OLD_FORMAT_PATTERN = re.compile(r".*_c\d{3}_.*")
 DRY_RUN_FILE = "ilm_template_removal_plan.txt"
 LIFECYCLE_LIST_FILE = "templates_with_lifecycle.txt"
+SEARCH_QUERY_PLAN_FILE = "search_query_dry_run.txt"
 
 # Environment defaults
 ES_HOST = os.getenv('ES_HOST', 'localhost')
@@ -68,9 +69,9 @@ def scan_templates(host, port, user, password):
         for entry in comp['index_templates']:
             name = entry['name']
             # Skip templates containing 'query' or 'user'
-            # if 'query' in name or 'user' in name:
-            #     skipped.append(name)
-            #     continue# skip legacy filtering here; only OLD_FORMAT_PATTERN applies
+            if 'query' in name or 'user' in name:
+                skipped.append(name)
+                continue# skip legacy filtering here; only OLD_FORMAT_PATTERN applies
             patterns = entry['index_template'].get('index_patterns', [])
             if any(OLD_FORMAT_PATTERN.match(p) for p in patterns):
                 if template_has_lifecycle(host, port, user, password, name):
@@ -79,20 +80,12 @@ def scan_templates(host, port, user, password):
                     skipped.append(name)
     return candidates, skipped
 
-def remove_lifecycle_from_template(host, port, user, password, name):
-    """GET composable template, strip ILM settings, PUT back."""
-    path = f"/_index_template/{name}"
-    resp = curl_request(host, port, user, password, "GET", path)
-    tmpl = resp['index_templates'][0]['index_template']
-    tmpl.get('template', {}).get('settings', {}).get('index', {}).pop('lifecycle', None)
-    return 'PUT', path, tmpl
-
-def generate_dry_run_plan(templates, host, port):
+def generate_dry_run_plan(templates, host, port, plan_file):
     if not templates:
         print("No matching templates with ILM found. No plan created.")
         return
-    print(f"\nWriting dry-run plan to {DRY_RUN_FILE}…")
-    with open(DRY_RUN_FILE, 'w') as f:
+    print(f"\nWriting dry-run plan to {plan_file}…")
+    with open(plan_file, 'w') as f:
         f.write(f"# Plan generated on: {datetime.now().isoformat()}\n")
         f.write(f"# ES host: {host}:{port}\n# Commands: GET then PUT without ILM settings\n\n")
         for name in templates:
@@ -137,6 +130,55 @@ def list_templates_with_lifecycle(host, port, user, password, out_file):
             f.write(n + "\n")
     print(f"Found {len(names)} templates with ILM; written to {out_file}")
 
+def remove_lifecycle_from_template(host, port, user, password, name):
+    """GET composable template, strip ILM settings, PUT back."""
+    path = f"/_index_template/{name}"
+    resp = curl_request(host, port, user, password, "GET", path)
+    tmpl = resp['index_templates'][0]['index_template']
+    tmpl.get('template', {}).get('settings', {}).get('index', {}).pop('lifecycle', None)
+    return 'PUT', path, tmpl
+
+def generate_search_query_dry_run(host, port, user, password):
+    """Special dry-run: templates with 'search_query_' in name, not 'v4', and having ILM."""
+    comp = curl_request(host, port, user, password, "GET", "/_index_template")
+    if not comp or 'index_templates' not in comp:
+        print("Failed to fetch index templates.")
+        return
+
+    matches = []
+    for e in comp['index_templates']:
+        name = e['name']
+        if 'search_query_' in name and 'v4' not in name:
+            if template_has_lifecycle(host, port, user, password, name):
+                matches.append(name)
+
+    generate_dry_run_plan(matches, host, port, SEARCH_QUERY_PLAN_FILE)
+
+def execute_search_query_removal(host, port, user, password):
+    comp = curl_request(host, port, user, password, "GET", "/_index_template")
+    if not comp or 'index_templates' not in comp:
+        print("Failed to fetch index templates.")
+        return
+    matches = [
+        e['name'] for e in comp['index_templates']
+        if 'search_query_' in e['name']
+        and 'v4' not in e['name']
+        and template_has_lifecycle(host, port, user, password, e['name'])
+    ]
+    if not matches:
+        print("No matching 'search_query' templates with ILM found.")
+        return
+    print("\n--- EXECUTE SEARCH_QUERY REMOVAL ---")
+    confirm = input(f"Type 'proceed' to remove ILM from {len(matches)} templates: ")
+    if confirm.strip().lower() != 'proceed':
+        print("Aborted.")
+        return
+    for name in matches:
+        method, path, data = remove_lifecycle_from_template(host, port, user, password, name)
+        print(f"Removing ILM from {name}…", end=' ')
+        resp = curl_request(host, port, user, password, method, path, data)
+        print("OK" if resp else "FAIL")
+
 def main():
     parser = argparse.ArgumentParser(
         description="Manage ILM on composable index templates"
@@ -150,18 +192,26 @@ def main():
     group.add_argument('--execute',        action='store_true')
     group.add_argument('--list-lifecycle', action='store_true',
                        help="List all composable templates that still have an ILM policy")
+    group.add_argument('--dry-search-query', action='store_true',
+                       help="Generate dry-run only for 'search_query*' templates (no 'v4') with ILM")
+    group.add_argument('--execute-search-query',  action='store_true',
+                       help="Execute removal on 'search_query*' templates (no 'v4') with ILM")
 
     args = parser.parse_args()
     if args.user and not args.password:
         args.password = getpass(f"Password for '{args.user}': ")
 
     # --list-lifecycle takes precedence
+    # Highest-priority flags
     if args.list_lifecycle:
-        list_templates_with_lifecycle(
-            args.host, args.port, args.user, args.password, LIFECYCLE_LIST_FILE
-        )
+        list_templates_with_lifecycle(args.host, args.port, args.user, args.password, LIFECYCLE_LIST_FILE)
         return
-
+    if args.dry_search_query:
+        generate_search_query_dry_run(args.host, args.port, args.user, args.password)
+        return
+    if args.execute_search_query:
+        execute_search_query_removal(args.host, args.port, args.user, args.password)
+        return
     # existing flow: pattern-based dry-run or execute
     templates, skipped = scan_templates(args.host, args.port, args.user, args.password)
     report = f"\n[REPORT] Will update {len(templates)} templates; skipped {len(skipped)} without ILM\n"
@@ -172,7 +222,7 @@ def main():
     if args.execute:
         execute_removal(templates, args.host, args.port)
     else:
-        generate_dry_run_plan(templates, args.host, args.port)
+        generate_dry_run_plan(templates, args.host, args.port, DRY_RUN_FILE)
 
 if __name__ == '__main__':
     main()

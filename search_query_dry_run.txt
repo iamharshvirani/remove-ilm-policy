@@ -1,0 +1,76 @@
+# Plan generated on: 2025-06-12T16:03:39.060582
+# ES host: localhost:9200
+# Commands: GET then PUT without ILM settings
+
+# GET /_index_template/search_query_c013_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' \
+    http://localhost:9200/_index_template/search_query_c013_v2_template
+
+# PUT /_index_template/search_query_c013_v2_template
+curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json' \
+    http://localhost:9200/_index_template/search_query_c013_v2_template -d '{"index_patterns": ["search_query_c013_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v1", "search_query_c013_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
+
+# GET /_index_template/search_query_c022_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' \
+    http://localhost:9200/_index_template/search_query_c022_v2_template
+
+# PUT /_index_template/search_query_c022_v2_template
+curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json' \
+    http://localhost:9200/_index_template/search_query_c022_v2_template -d '{"index_patterns": ["search_query_c022_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v1", "search_query_c022_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
+
+# GET /_index_template/search_query_c019_v2_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' \
+    http://localhost:9200/_index_template/search_query_c019_v2_template
+
+# PUT /_index_template/search_query_c019_v2_template
+curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json' \
+    http://localhost:9200/_index_template/search_query_c019_v2_template -d '{"index_patterns": ["search_query_c019_v2*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v1", "search_query_c019_v2_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
+
+# GET /_index_template/search_query_c022_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' \
+    http://localhost:9200/_index_template/search_query_c022_v3_template
+
+# PUT /_index_template/search_query_c022_v3_template
+curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json' \
+    http://localhost:9200/_index_template/search_query_c022_v3_template -d '{"index_patterns": ["search_query_c022_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v2", "search_query_c022_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
+
+# GET /_index_template/search_query_c022_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' \
+    http://localhost:9200/_index_template/search_query_c022_v1_template
+
+# PUT /_index_template/search_query_c022_v1_template
+curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json' \
+    http://localhost:9200/_index_template/search_query_c022_v1_template -d '{"index_patterns": ["search_query_c022_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v1", "search_query_c022_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
+
+# GET /_index_template/search_query_c013_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' \
+    http://localhost:9200/_index_template/search_query_c013_v3_template
+
+# PUT /_index_template/search_query_c013_v3_template
+curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json' \
+    http://localhost:9200/_index_template/search_query_c013_v3_template -d '{"index_patterns": ["search_query_c013_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v2", "search_query_c013_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
+
+# GET /_index_template/search_query_c019_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' \
+    http://localhost:9200/_index_template/search_query_c019_v1_template
+
+# PUT /_index_template/search_query_c019_v1_template
+curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json' \
+    http://localhost:9200/_index_template/search_query_c019_v1_template -d '{"index_patterns": ["search_query_c019_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v1", "search_query_c019_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
+
+# GET /_index_template/search_query_c019_v3_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' \
+    http://localhost:9200/_index_template/search_query_c019_v3_template
+
+# PUT /_index_template/search_query_c019_v3_template
+curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json' \
+    http://localhost:9200/_index_template/search_query_c019_v3_template -d '{"index_patterns": ["search_query_c019_v3*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v2", "search_query_c019_v3_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
+
+# GET /_index_template/search_query_c013_v1_template
+curl -s -u videosearch_daemon:<password> -H 'Accept: application/json' \
+    http://localhost:9200/_index_template/search_query_c013_v1_template
+
+# PUT /_index_template/search_query_c013_v1_template
+curl -X PUT -u videosearch_daemon:<password> -H 'Content-Type: application/json' \
+    http://localhost:9200/_index_template/search_query_c013_v1_template -d '{"index_patterns": ["search_query_c013_v1*"], "template": {"settings": {"index": {}}}, "composed_of": ["query_mappings_v1", "search_query_c013_v1_settings"], "priority": 200, "data_stream": {"hidden": false, "allow_custom_routing": false}}'
+
